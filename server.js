@@ -6,24 +6,22 @@ require('dotenv').config();
 const app = express();
 
 // ✅ Enable CORS Middleware
-const prodOrigins = [process.env.ORIGIN_1, process.env.ORIGIN_2]
-const devOrigin = ['https://to-kbm12i45r-karthik-ks-projects-4c2799af.vercel.app',]
-const allowedOrigins =  process.env.NODE_ENV ===' production' ? prodOrigins : devorigin
+const prodOrigins = [process.env.ORIGIN_1, process.env.ORIGIN_2];
+const devOrigin = ['https://to-kbm12i45r-karthik-ks-projects-4c2799af.vercel.app'];
+const allowedOrigins = process.env.NODE_ENV === 'production' ? prodOrigins : devOrigin;
+
 app.use(cors({
-            origin: (origin, callback) => {
-            if (allowedOrigins.includes (origin)) {
-                 console.log(origin, allowedOrigins)
-                 callback(null, true);
-            } else {
-                 callback(new Error("Not allowed by CORS'));
-                                }
-                                },
-    credentials: true,
-    methods: ['GET', 'POST','PUT','DELETE'],
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin)) {
+            console.log('Origin:', origin);
+            callback(null, true); // ✅ Allow request
+        } else {
+            callback(new Error("Not allowed by CORS")); // ✅ Correct error message
+        }
+    },
+    credentials: true, // ✅ Allows cookies if needed
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // ✅ Allowed methods
 }));
-
-
-
 
 app.use(express.json());
 
@@ -38,5 +36,6 @@ mongoose.connect(process.env.MONGO_URI, {
 const todoRoutes = require('./routes/todoRoutes');
 app.use('/api', todoRoutes);
 
-// Start the server
-app.listen(5000, () => console.log('🚀 Server running on port 5000'));
+// Port Configuration
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
