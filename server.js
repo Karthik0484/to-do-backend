@@ -6,12 +6,25 @@ require('dotenv').config();
 const app = express();
 
 // ✅ Enable CORS Middleware
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://to-kbm12i45r-karthik-ks-projects-4c2799af.vercel.app");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    next();
-});
+const prodOrigins = [process.env.ORIGIN_1, process.env.ORIGIN_2]
+const devOrigin = ['https://to-kbm12i45r-karthik-ks-projects-4c2799af.vercel.app',]
+const allowedOrigins =  process.env.NODE_ENV ===' production' ? prodOrigins : devorigin
+app.use(cors({
+            origin: (origin, callback) => {
+            if (allowedOrigins.includes (origin)) {
+                 console.log(origin, allowedOrigins)
+                 callback(null, true);
+            } else {
+                 callback(Error("Not allowed by CORS'));
+                                }
+                                },
+    credentials: true,
+    methods: ['GET', 'POST','PUT','DELETE'],
+}));
+
+
+
+
 app.use(express.json());
 
 // MongoDB Connection
