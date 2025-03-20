@@ -6,12 +6,12 @@ require('dotenv').config();
 const app = express();
 
 // ✅ Enable CORS Middleware
-app.use(cors({
-    origin: "https://to-kbm12i45r-karthik-ks-projects-4c2799af.vercel.app", // ✅ Your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-}));
-
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://to-kbm12i45r-karthik-ks-projects-4c2799af.vercel.app");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    next();
+});
 app.use(express.json());
 
 // MongoDB Connection
