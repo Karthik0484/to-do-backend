@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: todo-backend
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        value: "your-mongodb-connection-string"
