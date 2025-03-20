@@ -6,4 +6,4 @@ services:
     startCommand: node server.js
     envVars:
       - key: MONGO_URI
-        value: "your-mongodb-connection-string"
+        value: "mongodb+srv://karthik:1234@cluster0.pgvpg.mongodb.net/"
