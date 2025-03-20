@@ -5,16 +5,16 @@ require('dotenv').config();
 
 const app = express();
 
-// ✅ Enable CORS (Add This)
+// ✅ Enable CORS Middleware
 app.use(cors({
-    origin: "https://to-d25k1oevt-karthik-ks-projects-4c2799af.vercel.app",  // Your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE"],  // Allowed request types
-    credentials: true  // Allows cookies and credentials if needed
+    origin: "https://to-kbm12i45r-karthik-ks-projects-4c2799af.vercel.app", // ✅ Your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
 }));
 
 app.use(express.json());
 
-// Connect to MongoDB
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
